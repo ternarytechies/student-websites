@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Bull and the Mouse - Storybook</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(to bottom, #f0e6d2, #e2d0a5);
+            color: #3a2c1e;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* Book Container */
+        .book-container {
+            width: 100%;
+            max-width: 700px;
+            background: #fffaf0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin: 20px auto;
+            min-height: 800px;
+        }
+        
+        /* Pages */
+        .page {
+            width: 100%;
+            min-height: 800px;
+            padding: 40px;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            background: #fffaf0;
+            position: relative;
+        }
+        
+        .page.active {
+            display: flex;
+        }
+        
+        /* Cover Page */
+        .cover {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: #f5deb3;
+            justify-content: center;
+            border: none;
+        }
+        
+        .cover h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            color: #ffd700;
+            text-align: center;
+        }
+        
+        .cover h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #f5deb3;
+            text-align: center;
+        }
+        
+        .cover-image {
+            width: 450px;
+            height: 680px;
+            background: linear-gradient(45deg, #d2b48c, #deb887);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            border: 8px solid #ffd700;
+            box-shadow: 0 0 25px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        
+        .cover-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .cover p {
+            font-style: italic;
+            margin-top: 30px;
+            font-size: 1.4rem;
+        }
+        
+        /* Chapter Pages */
+        .chapter-title {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: #8b4513;
+            text-align: center;
+            border-bottom: 4px solid #d2b48c;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+        
+        .story-image {
+            width: 600px;
+            height: 450px;
+            margin: 30px auto;
+            border: 6px solid #d2b48c;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #f5e9d5, #f0dcc9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .story-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            text-align: justify;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .story-text p {
+            margin-bottom: 20px;
+            text-indent: 30px;
+        }
+        
+        /* Image Position Variants */
+        .image-top .story-image {
+            order: 1;
+        }
+        
+        .image-top .story-text {
+            order: 2;
+        }
+        
+        .image-bottom .story-text {
+            order: 1;
+        }
+        
+        .image-bottom .story-image {
+            order: 2;
+        }
+        
+        /* Student Reflection Page */
+        .reflection {
+            background: linear-gradient(135deg, #f9f2e8 0%, #f5e9d5 100%);
+            justify-content: flex-start;
+            padding: 40px 30px;
+        }
+        
+        .reflection h2 {
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            color: #8b4513;
+            text-align: center;
+            border-bottom: 4px solid #d2b48c;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+        
+        .reflection-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .reflection-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f4eb;
+            border-radius: 12px;
+            border-left: 6px solid #8b4513;
+            text-align: left;
+        }
+        
+        .reflection-item h3 {
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .reflection-item p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+            text-align: right;
+            font-size: 1.3rem;
+            color: #8b4513;
+        }
+        
+        /* End Page */
+        .end-page {
+            background: linear-gradient(135deg, #2c1810 0%, #5d4e37 100%);
+            color: #ffd700;
+            justify-content: center;
+        }
+        
+        .end-page h1 {
+            font-size: 4.5rem;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+        
+        .end-page .story-image {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #8b4513;
+            border-color: #ffd700;
+        }
+        
+        .end-page p {
+            font-size: 1.6rem;
+            margin-top: 40px;
+            color: #f5deb3;
+        }
+        
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 700px;
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+        
+        .page-counter {
+            background: #8b4513;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        button {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #8b4513, #a0522d);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        button:hover {
+            background: linear-gradient(45deg, #a0522d, #cd853f);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Page Turn Animation */
+        .page-transition {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+        
+        .page.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .book-container {
+                max-width: 100%;
+                min-height: 700px;
+                margin: 10px;
+            }
+            
+            .page {
+                min-height: 700px;
+                padding: 30px 20px;
+            }
+            
+            .cover h1 {
+                font-size: 3rem;
+            }
+            
+            .cover h2 {
+                font-size: 1.6rem;
+            }
+            
+            .cover-image {
+                width: 250px;
+                height: 250px;
+                font-size: 5rem;
+            }
+            
+            .chapter-title {
+                font-size: 2.2rem;
+                margin-bottom: 25px;
+            }
+            
+            .story-image {
+                width: 320px;
+                height: 220px;
+                font-size: 4rem;
+                margin: 25px auto;
+            }
+            
+            .story-text {
+                font-size: 1.1rem;
+                max-width: 100%;
+                padding: 0 10px;
+            }
+            
+            .reflection-content {
+                padding: 25px;
+            }
+            
+            .reflection-item h3 {
+                font-size: 1.4rem;
+            }
+            
+            .reflection-item p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .book-container {
+                min-height: 600px;
+            }
+            
+            .page {
+                min-height: 600px;
+                padding: 20px 15px;
+            }
+            
+            .cover h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cover h2 {
+                font-size: 1.4rem;
+            }
+            
+            .cover-image {
+                width: 200px;
+                height: 300px;
+                font-size: 4rem;
+            }
+            
+            .chapter-title {
+                font-size: 1.8rem;
+            }
+            
+            .story-image {
+                width: 350px;
+                height: 180px;
+                font-size: 3.5rem;
+                margin: 20px auto;
+            }
+            
+            .story-text {
+                font-size: 1rem;
+            }
+            
+            .story-text p {
+                text-indent: 20px;
+            }
+            
+            button {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .page-counter {
+                padding: 8px 15px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Special styling for different page layouts */
+        .page-layout-1 {
+            flex-direction: column;
+        }
+        
+        .page-layout-1 .story-image {
+            margin-bottom: 20px;
+        }
+        
+        .page-layout-2 {
+            flex-direction: column-reverse;
+        }
+        
+        .page-layout-2 .story-image {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        /* Decorative elements */
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b4513, #d2b48c, #8b4513);
+        }
+        
+        .page::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b4513, #d2b48c, #8b4513);
+        }
+    </style>
+</head>
+<body>
+    <h1 style="margin: 20px 0; color: #8b4513; font-size: 3rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">The Bull and the Mouse</h1>
+    
+    <div class="book-container">
+        <!-- Cover Page -->
+        <div class="page cover active" id="cover">
+            <h1>The Bull and the Mouse</h1>
+            <div class="cover-image"><img src="page.jpeg" alt="Cover Image"></div>
+            <h2>A Tale of Friendship and Courage</h2>
+            <p>A story for all ages</p>
+        </div>
+        
+        <!-- Chapter 1 - Image Above Text -->
+        <div class="page page-layout-1" id="page1">
+            <h2 class="chapter-title">Chapter One – The Big Scare</h2>
+            <div class="story-image"><img src="1.jpeg" alt="Chapter 1 Image"></div>
+            <div class="story-text">
+                <p>Once upon a time, in a sunny little farmyard, there lived a mighty bull named Bruno. Bruno was the strongest, biggest, and, if you asked him, the handsomest bull in the whole village. He spent most of his day eating grass, flexing his muscles, and admiring his shiny horns in the water trough.</p>
+                <p>One hot afternoon, as Bruno was dozing under a tree, he heard a squeaky little voice shouting, "Move over, Mr. Gigantic! You're squashing my home!" Bruno opened one eye and saw... a tiny mouse!</p>
+            </div>
+        </div>
+        
+        <!-- Chapter 1 Continued - Image Below Text -->
+        <div class="page page-layout-2" id="page2">
+            <h2 class="chapter-title">Chapter One – Continued</h2>
+            <div class="story-text">
+                <p>The mouse's name was Milo. He had the tiniest whiskers, the tiniest paws, and the squeakiest voice. But he was also very bossy for someone smaller than Bruno's nose-ring.</p>
+                <p>Bruno let out a mighty laugh. "You? Scare me? Don't make me snort milk through my nose, little squeaker!" But deep down, Bruno wasn't laughing. He had a secret: he was absolutely terrified of mice.</p>
+            </div>
+            <div class="story-image"><img src="1.jpeg" alt="Chapter 1 Continued Image"></div>
+        </div>
+        
+        <!-- Chapter 2 - Image Above Text -->
+        <div class="page page-layout-1" id="page3">
+            <h2 class="chapter-title">Chapter Two – The Great Chase</h2>
+            <div class="story-image"><img src="2.jpeg" alt="Chapter 2 Image"></div>
+            <div class="story-text">
+                <p>The next day, Milo decided he would teach Bruno a lesson about respecting small creatures. He tiptoed into the barn where Bruno was napping and shouted, "BOO!" right into the bull's ear.</p>
+                <p>Bruno leapt into the air with such force that he got his horns stuck in the barn roof! His hooves dangled helplessly as the chickens laughed, the goats cheered, and the donkey rolled on the floor braying, "Haaa-haa-haaaa!"</p>
+            </div>
+        </div>
+        
+        <!-- Chapter 2 Continued - Image Below Text -->
+        <div class="page page-layout-2" id="page4">
+            <h2 class="chapter-title">Chapter Two – Continued</h2>
+            <div class="story-text">
+                <p>When the farmer came running, Bruno tried to explain, "It was... it was... a MONSTER!" But Milo popped out of a haystack, wiggling his whiskers. The farmer scratched his head. "A mouse? You're scared of a mouse?"</p>
+                <p>Bruno's cheeks turned as red as ripe tomatoes. "I am not scared!" he insisted, while still dangling from the ceiling. But everyone in the farmyard was giggling too loudly to believe him.</p>
+            </div>
+            <div class="story-image"><img src="2.jpeg" alt="Chapter 2 Continued Image"></div>
+        </div>
+        
+        <!-- Chapter 3 - Image Above Text -->
+        <div class="page page-layout-1" id="page5">
+            <h2 class="chapter-title">Chapter Three – The Big Rescue</h2>
+            <div class="story-image"><img src="3.jpeg" alt="Chapter 3 Image"></div>
+            <div class="story-text">
+                <p>One evening, a wild cat sneaked into the barn, its eyes glowing like two yellow lanterns. The animals froze in fear. The cat crept closer and closer to Milo's tiny hole. This time, it wasn't funny at all.</p>
+                <p>Bruno's heart pounded. He might be scared of mice, but Milo was his friend now. With a powerful stomp, Bruno charged at the cat. The ground shook, the barn rattled, and the cat yowled, "YEEEOOOW!" as it ran for its life, tail between its legs.</p>
+            </div>
+        </div>
+        
+        <!-- Chapter 3 Continued - Image Below Text -->
+        <div class="page page-layout-2" id="page6">
+            <h2 class="chapter-title">Chapter Three – Continued</h2>
+            <div class="story-text">
+                <p>Milo squeaked happily, "You saved me! I guess even a big scaredy-bull can be brave when it matters." Bruno smiled proudly, pretending not to hear the word "scaredy."</p>
+                <p>From that day on, Milo and Bruno became the unlikeliest best friends. Milo kept Bruno's secret about being afraid of little things, and Bruno promised to always protect Milo from big scary things. And together, they taught everyone in the farmyard that size doesn't matter when it comes to courage, or friendship.</p>
+            </div>
+            <div class="story-image"><img src="3.jpeg" alt="Chapter 3 Continued Image"></div>
+        </div>
+        
+        <!-- Student Reflection Page -->
+        <div class="page reflection" id="reflection">
+            <h2>Student Reflection</h2>
+            <div class="reflection-content">
+                <div class="reflection-item">
+                    <h3>About Me</h3>
+                    <p>This storybook was created by <strong>[Student Name]</strong> from <strong>[Class Name]</strong> as a project for our technology class.</p>
+                </div>
+                
+                <div class="reflection-item">
+                    <h3>What I Learned About Prompt Engineering</h3>
+                    <p>Through this project, I learned how to craft effective prompts to generate the story content, design elements, and code structure. I discovered that being specific with my requests and providing clear examples helps create better outcomes.</p>
+                </div>
+                
+                <div class="reflection-item">
+                    <h3>My Creative Process</h3>
+                    <p>I started by providing the story text and then worked on designing an interactive storybook with vertical page layout and strategic image placement to enhance storytelling.</p>
+                </div>
+                
+                <div class="reflection-item">
+                    <h3>Technical Skills Gained</h3>
+                    <p>I developed skills in HTML structure, CSS styling, responsive design, and creating engaging user interfaces with smooth page transitions.</p>
+                </div>
+                
+                <p class="signature">Written and designed by [Student Name]</p>
+            </div>
+        </div>
+        
+        <!-- End Page -->
+        <div class="page end-page" id="end">
+            <h1>The End</h1>
+            <div class="story-image">📖✨</div>
+            <p>Thank you for reading our story!</p>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <button id="prev-btn" disabled>← Previous</button>
+        <div class="page-counter">
+            <span id="current-page">1</span> of <span id="total-pages">8</span>
+        </div>
+        <button id="next-btn">Next →</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pages = document.querySelectorAll('.page');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const currentPageSpan = document.getElementById('current-page');
+            const totalPagesSpan = document.getElementById('total-pages');
+            let currentPage = 0;
+            
+            // Set total pages
+            totalPagesSpan.textContent = pages.length;
+            
+            // Function to update page visibility and button states
+            function updatePages() {
+                // Hide all pages and show current
+                pages.forEach((page, index) => {
+                    page.classList.remove('active');
+                    if (index === currentPage) {
+                        // Add transition effect
+                        setTimeout(() => {
+                            page.classList.add('active');
+                        }, 50);
+                    }
+                });
+                
+                // Update page counter
+                currentPageSpan.textContent = currentPage + 1;
+                
+                // Update button states
+                prevBtn.disabled = currentPage === 0;
+                nextBtn.disabled = currentPage === pages.length - 1;
+            }
+            
+            // Initial page setup
+            updatePages();
+            
+            // Event listeners for buttons
+            nextBtn.addEventListener('click', function() {
+                if (currentPage < pages.length - 1) {
+                    pages[currentPage].classList.add('page-transition');
+                    setTimeout(() => {
+                        currentPage++;
+                        updatePages();
+                    }, 200);
+                }
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentPage > 0) {
+                    pages[currentPage].classList.add('page-transition');
+                    setTimeout(() => {
+                        currentPage--;
+                        updatePages();
+                    }, 200);
+                }
+            });
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' && currentPage < pages.length - 1) {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft' && currentPage > 0) {
+                    prevBtn.click();
+                }
+            });
+            
+            // Add touch/swipe support for mobile
+            let startX = 0;
+            let startY = 0;
+            
+            document.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            });
+            
+            document.addEventListener('touchend', function(e) {
+                if (!startX || !startY) return;
+                
+                let endX = e.changedTouches[0].clientX;
+                let endY = e.changedTouches[0].clientY;
+                
+                let diffX = startX - endX;
+                let diffY = startY - endY;
+                
+                // Check if horizontal swipe is more significant than vertical
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        // Swipe left - next page
+                        if (currentPage < pages.length - 1) {
+                            nextBtn.click();
+                        }
+                    } else {
+                        // Swipe right - previous page
+                        if (currentPage > 0) {
+                            prevBtn.click();
+                        }
+                    }
+                }
+                
+                startX = 0;
+                startY = 0;
+            });
+        });
+    </script>
+</body>
+</html>
