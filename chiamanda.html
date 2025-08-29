@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Creative Space</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --color1: #FF6B8B;
+            --color2: #6A7FDB;
+            --color3: #57E2E5;
+            --color4: #45CB85;
+            --color5: #FFD166;
+            --dark: #2D3047;
+            --light: #F7F9FC;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--color1);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--color1);
+            position: relative;
+            font-weight: 800;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--color1), var(--color2));
+            border-radius: 10px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 60px;
+            color: var(--color2);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(255,255,255,0.95);
+            color: var(--dark);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--color1) 0%, var(--color2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2.2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 20px;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color1), var(--color2));
+            transition: 0.3s;
+            border-radius: 10px;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover {
+            color: var(--color1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, rgba(255,107,139,0.1) 0%, rgba(106,127,219,0.1) 100%);
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--color1) 0%, var(--color2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: var(--dark);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-highlight {
+            color: var(--color1);
+            font-weight: bold;
+        }
+        
+        .hero-emoji {
+            font-size: 2.2rem;
+            margin: 0 8px;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+        
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            background: var(--color1);
+            top: 20%;
+            left: 10%;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            background: var(--color2);
+            top: 60%;
+            right: 10%;
+            animation: float 10s infinite ease-in-out;
+        }
+        
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            background: var(--color3);
+            bottom: 20%;
+            left: 20%;
+            animation: float 12s infinite ease-in-out;
+        }
+        
+        .shape-4 {
+            width: 120px;
+            height: 120px;
+            background: var(--color5);
+            top: 30%;
+            right: 20%;
+            animation: float 9s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-image {
+            text-align: center;
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 5px solid white;
+            transform: rotate(-3deg);
+            transition: all 0.3s ease;
+        }
+        
+        .about-image img:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+        
+        .about-content h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--color2);
+        }
+        
+        .about-details {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background: var(--light);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--color1) 0%, var(--color2) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* Interests Section */
+        .interests {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(87,226,229,0.1) 0%, rgba(69,203,133,0.1) 100%);
+        }
+        
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .interest-card {
+            background: white;
+            padding: 35px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .interest-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--color1), var(--color2));
+        }
+        
+        .interest-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .interest-icon {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--color1) 0%, var(--color2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .interest-card h3 {
+            margin-bottom: 15px;
+            color: var(--color1);
+            font-size: 1.5rem;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+        
+        .project-card {
+            background: var(--light);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .project-image {
+            height: 220px;
+            background: linear-gradient(135deg, var(--color2) 0%, var(--color4) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 100%);
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-content h3 {
+            color: var(--color1);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .project-tag {
+            background: linear-gradient(135deg, var(--color3) 0%, var(--color4) 100%);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(255,209,102,0.1) 0%, rgba(255,107,139,0.1) 100%);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .contact-info h3 {
+            color: var(--color1);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color1) 0%, var(--color2) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .contact-form h3 {
+            color: var(--color1);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--color4);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--color2);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(106,127,219,0.2);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .social-link {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--color1);
+            transform: translateY(-5px) rotate(5deg);
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            color: rgba(255,255,255,0.7);
+            font-size: 1rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .about-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero {
+                padding: 140px 0 80px;
+            }
+            
+            .section-title {
+                font-size: 2.3rem;
+            }
+            
+            .shape {
+                display: none;
+            }
+            
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                margin: 0 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .btn {
+                padding: 10px 22px;
+            }
+            
+            .interest-card,
+            .project-card,
+            .contact-info,
+            .contact-form {
+                padding: 25px 20px;
+            }
+            
+            .detail-item {
+                padding: 12px;
+            }
+            
+            .detail-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-palette"></i>
+                <span>My Creative Space</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#interests">My Interests</a></li>
+                    <li><a href="#projects">My Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        
+        <div class="container hero-content">
+            <h1>Hello! I'm <span class="hero-highlight">Amanda Ezendaku </span></h1>
+            <p>
+                A <span class="hero-highlight"> 6</span>-year-old creative who loves 
+                <span class="hero-emoji">🎨</span>,playing
+                <span class="hero-emoji">🚀</span>,teaching and
+                <span class="hero-emoji">🎮</span>eating
+            </p>
+            <a href="#about" class="btn">Get to Know Me</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">a
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Get to know who I am and what I love</p>
+            
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://placehold.co/450x500/6A7FDB/FFFFFF?text=My+Photo" alt="My Photo">
+                </div>
+                <div class="about-content">
+                    <h3>Hello there! 👋</h3>
+                    <p>I'm a 9-year-old from Anambra who loves to teach. I'm in 2nd grade at Delightful Bunch School and my favorite subject is Mathematics, English Skill, Handwriting & Verbal Reasoning.</p>
+                    <p>When I'm not studying, you can usually find me teaching.</p>
+                    
+                    <div class="about-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-cake-candles"></i>
+                            </div>
+                            <div>
+                                <strong>Age:</strong> 9 years old
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-school"></i>
+                            </div>
+                            <div>
+                                <strong>School:</strong> Delightful Bunch School
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <strong>Location:</strong> Lagos, Nigeria
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div>
+                                <strong>Passion:</strong> Adventure
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section id="interests" class="interests">
+        <div class="container">
+            <h2 class="section-title">My Interests</h2>
+            <p class="section-subtitle">Things I love to do and learn about</p>
+            
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Adventure</h3>
+                    <p>I love to explore new places and try new things.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Fashion</h3>
+                    <p>I love fashion and design.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Drawing & Coloring</h3>
+                    <p>I love to express my creativity through drawing, painting, and digital art.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Teaching</h3>
+                    <p>I love teaching.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Gaming</h3>
+                    <p>I enjoy playing games in my free time.</p>
+                </div>
+                
+                <div class="interest-card">
+                    <div class="interest-icon">
+                        <i class="fas fa-baseball"></i>
+                    </div>
+                    <h3>Sports</h3>
+                    <p>I love playing [sport] and [sport] with my friends and family.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <p class="section-subtitle">Things I've created and accomplished</p>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Teaching</h3>
+                        <p>I've taught a lot of things to students.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Teaching</span>
+                            <span class="project-tag">Creative</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Drawing</h3>
+                        <p>I drew a Cat.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Art</span>
+                            <span class="project-tag">Animals</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>First Website</h3>
+                        <p>The first website I built using HTML and CSS, About Myself.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Css</span>
+                            <span class="project-tag"><Html></Html></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Connect!</h2>
+            <p class="section-subtitle">I'd love to hear from you</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p>Feel free to reach out if you'd like to know more about me or just say hello!</p>
+                    
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong>Email:</strong> chiamanda@gmail.com
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <div>
+                            <strong>School:</strong> Delightful Bunch School
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <strong>Location:</strong> Lagos, Nigeria
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Me a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" rows="5" placeholder="What would you like to say?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Amanda Ezendaku's Portfolio</h3>
+                <p>Made with ❤️ by Amanda Ezendaku | Last updated: 29th August 2025</p>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                
+                <p class="copyright">© 2023 Amanda Ezendaku. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for smooth scrolling
+        document.querySelectorAll('nav a, .btn').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if(this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submission handling (just a simple alert for this example)
+        const contactForm = document.querySelector('.contact-form form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thanks for your message! This is a demo, so your message wasn\'t actually sent.');
+                this.reset();
+            });
+        }
+        
+        // Add some fun animations to elements when they scroll into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.interest-card, .project-card');
+            
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                
+                // If element is in viewport
+                if(position.top < window.innerHeight - 100) {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Set initial state for animated elements
+        document.querySelectorAll('.interest-card, .project-card').forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        // Listen for scroll events
+        window.addEventListener('scroll', animateOnScroll);
+        // Trigger once on load
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
