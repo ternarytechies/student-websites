@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ololade Quadri - My Digital Portfolio</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            padding: 40px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #4ECDC4 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* About Me Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .profile-pic {
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #4ECDC4;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .photo-note {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        /* Favorites Section */
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .favorite-item {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .favorite-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .favorite-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .favorite-item h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        /* Hobbies Section */
+        .hobby-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .hobby-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .hobby-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .hobby-emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        /* Fun Facts Section */
+        .facts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .fact-bubble {
+            background: white;
+            padding: 20px;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .fact-bubble:hover {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+            color: white;
+        }
+        
+        .fact-number {
+            background: #4ECDC4;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        /* Goals Section */
+        .goals-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .goal-item {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .goal-icon {
+            font-size: 2rem;
+            margin-right: 20px;
+        }
+        
+        .goal-text h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        /* Technical Writing Section */
+        .writing-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .writing-sample {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .writing-sample:hover {
+            transform: translateY(-5px);
+        }
+        
+        .writing-header {
+            background: linear-gradient(90deg, #2c3e50, #4ECDC4);
+            color: white;
+            padding: 20px;
+        }
+        
+        .writing-body {
+            padding: 25px;
+        }
+        
+        .writing-body h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #FF6B6B;
+            padding-bottom: 8px;
+        }
+        
+        .writing-body p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .writing-body ol, .writing-body ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-content p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-fun {
+            margin-top: 20px;
+        }
+        
+        .footer-emoji {
+            font-size: 1.5rem;
+            margin: 0 8px;
+            display: inline-block;
+            animation: spin 4s linear infinite;
+        }
+        
+        .footer-emoji:nth-child(2n) {
+            animation-duration: 6s;
+        }
+        
+        .footer-emoji:nth-child(3n) {
+            animation-duration: 8s;
+        }
+        
+        /* Animations */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        @keyframes wiggle {
+            0%, 7%, 14%, 21%, 28% {transform: rotate(0deg);}
+            3.5% {transform: rotate(5deg);}
+            10.5% {transform: rotate(-5deg);}
+            17.5% {transform: rotate(3deg);}
+            24.5% {transform: rotate(-3deg);}
+        }
+        
+        @keyframes spin {
+            0% {transform: rotate(0deg);}
+            100% {transform: rotate(360deg);}
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="bounce">🌟 Welcome to My Digital Portfolio! 🌟</h1>
+            <p class="subtitle">Hello! I'm Ololade Quadri, a curious 7-year-old exploring the world of technology and learning.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- About Me Section -->
+        <section class="section about-me">
+            <h2 class="section-title">👋 About Me</h2>
+            <div class="about-content">
+                <div class="profile-pic">
+                    <img src="boy.jpg" alt="Ololade Quadri" class="profile-image">
+                    <p class="photo-note">📸 My profile picture</p>
+                </div>
+                <div class="about-text">
+                    <p>Hello! My name is <strong>Ololade Quadri</strong> and I'm <strong>7</strong> years old.</p>
+                    <p>I live in <strong>Lagos, Nigeria</strong> and I'm passionate about learning new things every day!</p>
+                    <p>I attend <strong>Delightful Bunch School</strong> and I'm currently in <strong>Grade 3</strong>.</p>
+                    <p>I enjoy exploring technology, creating stories, and discovering how things work. My curiosity drives me to ask questions and find answers!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Favorites Section -->
+        <section class="section favorites">
+            <h2 class="section-title">❤️ My Favorite Things</h2>
+            <div class="favorites-grid">
+                <div class="favorite-item">
+                    <div class="favorite-icon">🎮</div>
+                    <h3>Favorite Game</h3>
+                    <p>Spider Fighter 2</p>
+                </div>
+                <div class="favorite-item">
+                    <div class="favorite-icon">🍕</div>
+                    <h3>Favorite Food</h3>
+                    <p>Rice and Plantain</p>
+                </div>
+                <div class="favorite-item">
+                    <div class="favorite-icon">🎵</div>
+                    <h3>Favorite Song</h3>
+                    <p>Praise the Lord</p>
+                </div>
+                <div class="favorite-item">
+                    <div class="favorite-icon">🐾</div>
+                    <h3>Favorite Animal</h3>
+                    <p>I love them equally</p>
+                </div>
+                <div class="favorite-item">
+                    <div class="favorite-icon">📚</div>
+                    <h3>Favorite Subject</h3>
+                    <p>Basic Science & English</p>
+                </div>
+                <div class="favorite-item">
+                    <div class="favorite-icon">🎨</div>
+                    <h3>Favorite Color</h3>
+                    <p>Red & Black</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Hobbies Section -->
+        <section class="section hobbies">
+            <h2 class="section-title">🎪 My Hobbies & Interests</h2>
+            <div class="hobby-cards">
+                <div class="hobby-card">
+                    <span class="hobby-emoji">✏️</span>
+                    <h3>Writing</h3>
+                    <p>I love writing because I get to express my creativity and imagination through words.</p>
+                </div>
+                <div class="hobby-card">
+                    <span class="hobby-emoji">🎮</span>
+                    <h3>Playing Scratch</h3>
+                    <p>I enjoy creating games and animations with Scratch. I've been learning it for the past year.</p>
+                </div>
+                <div class="hobby-card">
+                    <span class="hobby-emoji">📺</span>
+                    <h3>Streaming</h3>
+                    <p>I like watching educational streams where I can learn new things and expand my knowledge.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Writing Section -->
+        <section class="section technical-writing">
+            <h2 class="section-title">📝 My Technical Writing Examples</h2>
+            <p style="text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                I've been learning about technical writing, which is writing that explains how to do things. 
+                Here are two examples of my technical writing projects:
+            </p>
+            
+            <div class="writing-container">
+                <div class="writing-sample">
+                    <div class="writing-header">
+                        <h3>How to Make a Peanut Butter Sandwich</h3>
+                    </div>
+                    <div class="writing-body">
+                        <h4>Introduction</h4>
+                        <p>This guide will show you how to make a delicious peanut butter sandwich. It's perfect for lunch or a quick snack.</p>
+                        
+                        <h4>What You Will Need</h4>
+                        <ul>
+                            <li>2 slices of bread</li>
+                            <li>Peanut butter</li>
+                            <li>Butter knife</li>
+                            <li>Plate</li>
+                        </ul>
+                        
+                        <h4>Steps to Make It</h4>
+                        <ol>
+                            <li>Place two slices of bread on your plate</li>
+                            <li>Use the butter knife to scoop some peanut butter</li>
+                            <li>Spread the peanut butter on one slice of bread</li>
+                            <li>Put the other slice of bread on top</li>
+                            <li>Your sandwich is ready to eat!</li>
+                        </ol>
+                        
+                        <h4>Tips</h4>
+                        <p>You can add jelly or banana slices to make your sandwich even more delicious.</p>
+                    </div>
+                </div>
+                
+                <div class="writing-sample">
+                    <div class="writing-header">
+                        <h3>How to Brush Your Teeth Properly</h3>
+                    </div>
+                    <div class="writing-body">
+                        <h4>Introduction</h4>
+                        <p>Brushing your teeth is important to keep them healthy. This guide will show you the right way to brush your teeth.</p>
+                        
+                        <h4>What You Will Need</h4>
+                        <ul>
+                            <li>Toothbrush</li>
+                            <li>Toothpaste</li>
+                            <li>Water</li>
+                            <li>Cup</li>
+                        </ul>
+                        
+                        <h4>Steps to Brush Properly</h4>
+                        <ol>
+                            <li>Put a small amount of toothpaste on your toothbrush</li>
+                            <li>Wet your toothbrush with a little water</li>
+                            <li>Brush your teeth in small circles for 2 minutes</li>
+                            <li>Don't forget to brush all sides of your teeth</li>
+                            <li>Spit out the toothpaste and rinse your mouth</li>
+                            <li>Rinse your toothbrush and put it away</li>
+                        </ol>
+                        
+                        <h4>Tips</h4>
+                        <p>Brush your teeth twice a day - after breakfast and before bedtime.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fun Facts Section -->
+        <section class="section fun-facts">
+            <h2 class="section-title">🌈 Fun Facts About Me</h2>
+            <div class="facts-container">
+                <div class="fact-bubble">
+                    <span class="fact-number">1</span>
+                    <p>I can run very fast!</p>
+                </div>
+                <div class="fact-bubble">
+                    <span class="fact-number">2</span>
+                    <p>My dream is to become a Scientist.</p>
+                </div>
+                <div class="fact-bubble">
+                    <span class="fact-number">3</span>
+                    <p>I have 2 siblings.</p>
+                </div>
+                <div class="fact-bubble">
+                    <span class="fact-number">4</span>
+                    <p>If I could have any superpower, it would be speed!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Goals Section -->
+        <section class="section goals">
+            <h2 class="section-title">🎯 My Goals & Dreams</h2>
+            <div class="goals-list">
+                <div class="goal-item">
+                    <span class="goal-icon">📖</span>
+                    <div class="goal-text">
+                        <h3>This Year</h3>
+                        <p>I want to improve my coding skills and learn how to create more complex Scratch projects.</p>
+                    </div>
+                </div>
+                <div class="goal-item">
+                    <span class="goal-icon">🚀</span>
+                    <div class="goal-text">
+                        <h3>When I Grow Up</h3>
+                        <p>I want to be a Scientist because I'm curious about how things work and I want to make new discoveries.</p>
+                    </div>
+                </div>
+                <div class="goal-item">
+                    <span class="goal-icon">🌍</span>
+                    <div class="goal-text">
+                        <h3>Places I Want to Visit</h3>
+                        <p>I dream of visiting London to see the museums and historical landmarks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>🌟 Made with ❤️ by Ololade Quadri 🌟</p>
+                <p>Created: 27th August 2024 | Version: 2.0.0</p>
+                <div class="footer-fun">
+                    <span class="footer-emoji">🎉</span>
+                    <span class="footer-emoji">🌺</span>
+                    <span class="footer-emoji">🦋</span>
+                    <span class="footer-emoji">⭐</span>
+                    <span class="footer-emoji">🌸</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add some fun interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make the header title bounce when clicked
+            const title = document.querySelector('.bounce');
+            if (title) {
+                title.addEventListener('click', function() {
+                    this.style.animation = 'none';
+                    setTimeout(() => {
+                        this.style.animation = 'bounce 0.8s ease-in-out';
+                    }, 10);
+                });
+            }
+
+            // Add hover effect to hobby cards
+            const hobbyCards = document.querySelectorAll('.hobby-card');
+            hobbyCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Make fact bubbles wiggle when clicked
+            const factBubbles = document.querySelectorAll('.fact-bubble');
+            factBubbles.forEach(bubble => {
+                bubble.addEventListener('click', function() {
+                    this.style.animation = 'wiggle 0.5s ease-in-out';
+                    setTimeout(() => {
+                        this.style.animation = '';
+                    }, 500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
